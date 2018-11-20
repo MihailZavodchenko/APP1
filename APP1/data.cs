@@ -11,17 +11,26 @@ namespace APP1
     /// </summary>
     class data
     {
-        int direction; // направление движение каретки 0 прямое -1 обратное
-        public List<measurement> measurements;
 
+        int direction; ///<summary>направление движение каретки 1 прямое -1 обратное </summary> 
+        public List<measurement> measurements; //список измерений
+        int angle; ///<summary>угол поворота проволоки</summary>
+
+        /// <summary>
+        /// Инициализация нового набора данных
+        /// </summary>
         public data()
         {
             measurements = new List<measurement>();
         }
-
+       
+        /// <summary>
+        /// Задает направление движения каретки
+        /// </summary>
+        /// <param name="direction"> направление движения каретки 1 прямое -1 обратное</param>
         public void SetDirection(int direction)
         {
-            if(direction == -1 || direction == 0)
+            if(direction == -1 || direction == 1)
             {
                 this.direction = direction;
             }

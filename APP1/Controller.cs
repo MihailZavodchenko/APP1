@@ -12,31 +12,49 @@ namespace APP1
 /// </summary>
     class Controller
     {
+        data[] data;//массив данных 
 
-        public void ReadFIle(string FileName)
+        /// <summary>
+        /// Считывание файлов
+        /// </summary>
+        /// <param name="FileName">Массив имен файлов</param>
+        public void ReadFIle(string[] FileName)
         {
-            data data = new data();
-            StreamReader SR = new StreamReader(FileName, Encoding.Default);
+            data = new data[FileName.Length];
 
-            string[] buf = SR.ReadLine().Split(';');
-
-            if(buf[0] == "Файл:")
+            for (int i = 0; i < FileName.Length; i++)
             {
-                if(buf[1].Contains("Forward") == true)
+                data[i] = new data();
+
+                StreamReader SR = new StreamReader(FileName[i], Encoding.Default);
+
+                string[] buf = SR.ReadLine().Split(';');
+
+                if (buf[0] == "Файл:")
                 {
-                    data.SetDirection(0);
+                    if (buf[1].Contains("Forward") == true)
+                    {
+                        data[i].SetDirection(0);
+                    }
+                    if (buf[1].Contains("Reverse") == true)
+                    {
+                        data[i].SetDirection(-1);
+                    }
                 }
-            }
+                else
+                    throw new Exception("Данные в файле(файлах) в неправильном формате");
 
-            SR.ReadLine();
-            SR.ReadLine();
-            SR.ReadLine();
-            SR.ReadLine();
-            
-            while(!SR.EndOfStream)
-            {
-                buf = SR.ReadLine().Split(';');
-                data.measurements.Add(new measurement(int.Parse(buf[0]), double.Parse(buf[1])));
+                // Пропуск Строк
+                SR.ReadLine(); //Start
+                SR.ReadLine(); //Stop
+                SR.ReadLine(); //Параметры
+                SR.ReadLine(); //Шаг Амплитуда 
+
+                while (!SR.EndOfStream)//Считываем значения измерений
+                {
+                    buf = SR.ReadLine().Split(';');
+                    data[i].measurements.Add(new measurement(int.Parse(buf[0]), double.Parse(buf[1])));
+                }
             }
         }
     }

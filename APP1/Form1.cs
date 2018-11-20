@@ -30,7 +30,8 @@ namespace APP1
         {
             if(openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                controller.ReadFIle(openFileDialog.FileName);
+                
+                controller.ReadFIle(openFileDialog.FileNames);
             }
         }
         #endregion

@@ -58,6 +58,8 @@
             // openFileDialog
             // 
             this.openFileDialog.FileName = "openFileDialog";
+            this.openFileDialog.Filter = "CSV|*.csv";
+            this.openFileDialog.Multiselect = true;
             // 
             // openFileToolStripMenuItem
             // 
